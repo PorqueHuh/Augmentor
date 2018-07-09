@@ -1420,6 +1420,25 @@ class Pipeline(object):
                                      max_shear_left=max_shear_left,
                                      max_shear_right=max_shear_right))
 
+    def practice(self, probability):
+        if not 0 < probability <=1:
+            raise ValueError(Pipeline._probability_error_text)
+        else:
+            self.add_operation(PracticeImage(probability=probability))
+
+    def remove_red(self, probability):
+        if not 0 < probability <=1:
+            raise ValueError(Pipeline._probability_error_text)
+        else:
+            self.add_operation(RemoveRed(probability=probability))
+
+    def remove_green(self, probability):
+        if not 0 < probability <= 1:
+            raise ValueError(Pipeline._probability_error_text)
+        else:
+            self.add_operation(RemoveGreen(probability=probability))
+
+
     def greyscale(self, probability):
         """
         Convert images to greyscale. For this operation, setting the

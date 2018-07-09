@@ -132,6 +132,89 @@ class HistogramEqualisation(Operation):
         return augmented_images
 
 
+#Practice Class copying Greyscale
+class PracticeImage(Operation):
+    def __init__(self, probability):
+
+        Operation.__init__(self, probability)
+    def perform_operation(self, images):
+        def do(image):
+            return ImageOps.grayscale(image)
+
+        augmented_images = []
+
+        for image in images:
+            augmented_images.append(do(image))
+
+        return augmented_images
+#End of Practice Class
+
+#remove red
+class RemoveRed(Operation):
+    def __init__(self, probability):
+
+        Operation.__init__(self, probability)
+    def perform_operation(self, images):
+        def do(image):
+            n = image.convert('RGB')
+            m = n.load()
+
+            sizeOfImage = n.size
+
+            for x in range(sizeOfImage[0]):
+                for y in range(sizeOfImage[1]):
+                    red, green, blue = m[x, y]
+                    # remove red from the pic
+                    m[x, y] = 0, green, blue
+            image = n
+
+            return image
+
+        augmented_images = []
+
+        for image in images:
+            augmented_images.append(do(image))
+
+        return augmented_images
+#end of RemoveRed Class
+
+#remove green
+class RemoveGreen(Operation):
+    def __init__(self, probability):
+
+        Operation.__init__(self, probability)
+    def perform_operation(self, images):
+        def do(image):
+            n = image.convert('RGB')
+            m = n.load()
+
+            s = n.size
+
+            for x in range(s[0]):
+                for y in range(s[1]):
+                    r, g, b = m[x, y]
+                    # remove green from the pic
+                    m[x, y] = r, 0, b
+            image = n
+
+            return image
+
+        augmented_images = []
+
+        for image in images:
+            augmented_images.append(do(image))
+
+        return augmented_images
+
+#convert green to red
+#class ConvertGreenToRed:
+#    def __init__(self):
+#        Operation.__init__(self, probability)
+
+#    def perform_operation(self, images):
+#        def do(image):
+
+
 class Greyscale(Operation):
     """
     This class is used to convert images into greyscale. That is, it converts
